@@ -5,8 +5,15 @@ import json
 import sys
 import hcl
 
+def sanitize_path(config):
+    path = os.path.expanduser(config)
+    path = os.path.expandvars(path)
+    path = os.path.abspath(path)
+    return path
+
+
 def tfe_token(tfe_api, config):
-    with open(os.path.abspath(config), 'r') as fp:
+    with open(sanitize_path(config), 'r') as fp:
         obj = hcl.load(fp)
     return obj.get('credentials').get(tfe_api).get('token')
 
