@@ -1,24 +1,10 @@
-data "external" "oauth_token" {
-  program = ["python", "${path.module}/scripts/oauth_tokens.py"]
-
-  query = {
-    # arbitrary map from strings to strings, passed
-    # to the external program as the data query.
-    username = "${var.repo_user}"
-
-    tfe_org     = "${var.tfe_org}"
-    tfe_api = "${var.tfe_api}"
-    config = "${var.config}"
-  }
-}
-
 data "template_file" "module" {
   template = "${file("${path.module}/module.json.tpl")}"
 
   vars {
     repo_org       = "${var.github_organization}"
     repo_name      = "${var.repo}"
-    oauth_token_id = "${data.external.oauth_token.result.oauth_id}"
+    oauth_token_id = "${var.oauth_token}"
   }
 }
 
