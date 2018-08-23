@@ -30,5 +30,6 @@ data "external" "module_publish" {
     tfe_org       = "${var.tfe_org}"
     tfe_api = "${var.tfe_api}"
     config = "${var.config}"
+    repo_name      = "${var.repo}"
   }
 }
