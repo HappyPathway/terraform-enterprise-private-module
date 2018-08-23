@@ -34,7 +34,7 @@ def main():
     headers = {"Authorization": "Bearer {0}".format(atlas_token)}
 
 
-    resp = requests.get("https://app.terraform.io/api/v2/organizations/{0}/oauth-tokens".format(tfe_org), 
+    resp = requests.get("https://{0}/api/v2/organizations/{1}/oauth-tokens".format(tfe_api, tfe_org), 
                     headers=headers)
 
     oauth_id = parse_output(resp.json(), username)
