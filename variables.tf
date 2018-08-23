@@ -6,7 +6,9 @@ variable "repo" {
   type = "string"
 }
 
-variable "repo_user" {}
+variable "oauth_token" {
+  type = "string"
+}
 
 variable "tfe_org" {}
 
