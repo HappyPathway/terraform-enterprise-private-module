@@ -31,9 +31,10 @@ def main():
 
     headers = {"Authorization": "Bearer {0}".format(atlas_token),
                "Content-Type": "application/vnd.api+json"}
-               
+
     with open("/tmp/module_publish.log", "a") as log:
-        log.write(data)  
+        log.write(json.dumps(data, , separators=(',', ':'), indent=4, sort_keys=True))
+        
     resp = requests.post("https://app.terraform.io/api/v2/registry-modules", 
                     headers=headers,
                     data=json.dumps(data))
