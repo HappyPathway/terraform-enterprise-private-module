@@ -7,7 +7,8 @@ data "external" "oauth_token" {
     username = "${var.repo_user}"
 
     tfe_org     = "${var.tfe_org}"
-    atlas_token = "${var.atlas_token}"
+    tfe_api = "${var.tfe_api}"
+    config = "${var.config}"
   }
 }
 
@@ -27,6 +28,7 @@ data "external" "module_publish" {
   query = {
     module_config = "${data.template_file.module.rendered}"
     tfe_org       = "${var.tfe_org}"
-    atlas_token   = "${var.atlas_token}"
+    tfe_api = "${var.tfe_api}"
+    config = "${var.config}"
   }
 }

@@ -3,11 +3,21 @@ import requests
 import os
 import json
 import sys
+import hcl
+
+def tfe_token(tfe_api, config):
+    with open(os.path.abspath(config), 'r') as fp:
+        obj = hcl.load(fp)
+    return obj.get('credentials').get(tfe_api).get('token')
+
 
 def main():
     stdin_json = json.loads(sys.stdin.read())
-    atlas_token = stdin_json.get('atlas_token')
+    
     tfe_org = stdin_json.get('tfe_org')
+    tfe_api = stdin_json.get('tfe_api')
+    config = stdin_json.get('config')
+    atlas_token = tfe_token(tfe_api, config)
     module_config = stdin_json.get("module_config")
     data = json.loads(module_config)
     #with open("/tmp/module_config.json", "w") as config_output:
