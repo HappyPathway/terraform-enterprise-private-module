@@ -30,7 +30,8 @@ def main():
     #    config_output.write(json.dumps(data))
 
     headers = {"Authorization": "Bearer {0}".format(atlas_token),
-               "Content-Type": "application/vnd.api+json    "}
+               "Content-Type": "application/vnd.api+json"}
+               
     resp = requests.post("https://app.terraform.io/api/v2/registry-modules", 
                     headers=headers,
                     data=json.dumps(data))
