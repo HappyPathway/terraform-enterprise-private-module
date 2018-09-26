@@ -11,11 +11,6 @@ def sanitize_path(config):
     path = os.path.abspath(path)
     return path
 
-def tfe_token(tfe_api, config):
-    with open(sanitize_path(config), 'r') as fp:
-        obj = hcl.load(fp)
-    return obj.get('credentials').get(tfe_api).get('token')
-
 def duplicate_module(error):
     if "meta" in _error:
         if "duplicate_module" in _error.get("meta"):
@@ -31,7 +26,7 @@ def main():
     tfe_org = stdin_json.get('tfe_org')
     tfe_api = stdin_json.get('tfe_api')
     config = stdin_json.get('config')
-    atlas_token = tfe_token(tfe_api, config)
+    atlas_token = stdin_json.get("tfe_token")
     module_config = stdin_json.get("module_config")
     data = json.loads(module_config)
     #with open("/tmp/module_config.json", "w") as config_output:
