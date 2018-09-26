@@ -12,9 +12,9 @@ def sanitize_path(config):
     return path
 
 def duplicate_module(error):
-    if "meta" in _error:
-        if "duplicate_module" in _error.get("meta"):
-            if _error.get("meta").get("duplicate_module"):
+    if "meta" in error:
+        if "duplicate_module" in error.get("meta"):
+            if error.get("meta").get("duplicate_module"):
                 return True
     return False
 
