@@ -16,6 +16,13 @@ def tfe_token(tfe_api, config):
         obj = hcl.load(fp)
     return obj.get('credentials').get(tfe_api).get('token')
 
+def duplicate_module(error):
+    if "meta" in _error:
+        if "duplicate_module" in _error.get("meta"):
+            if _error.get("meta").get("duplicate_module"):
+                return True
+    return False
+
 class GOTOException(Exception): pass
 
 def main():
@@ -49,7 +56,7 @@ def main():
     try:
         if status_code not in [200, 201]:
             for _error in response_data.get("errors"):
-                if _error.get("meta").get("duplicate_module"):
+                if duplicate_module(_error):
                     raise GOTOException("Module Exists!")
             sys.stderr.write(str(resp.status_code))
             sys.stderr.write(resp.text)
