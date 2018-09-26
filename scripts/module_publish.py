@@ -40,15 +40,15 @@ def main():
                     headers=headers,
                     data=json.dumps(data))
 
-
-    data = json.dumps(resp.json(), separators=(',', ':'), indent=4, sort_keys=True)
+    response_data = resp.json()
+    data = json.dumps(response_data, separators=(',', ':'), indent=4, sort_keys=True)
     with open("/tmp/module_publish.log", "a") as log:
         log.write(data)
 
     status_code = resp.status_code
     try:
         if status_code not in [200, 201]:
-            for _error in data.get("errors"):
+            for _error in response_data.get("errors"):
                 if _error.get("meta").get("duplicate_module"):
                     raise GOTOException("Module Exists!")
             sys.stderr.write(str(resp.status_code))
