@@ -14,6 +14,7 @@ data "external" "module_publish" {
   query = {
     module_config = "${data.template_file.module.rendered}"
     tfe_org       = "${var.tfe_org}"
+    tfe_token = "${var.tfe_token}"
     tfe_api = "${var.tfe_api}"
     config = "${var.config}"
     repo_name      = "${var.repo}"
